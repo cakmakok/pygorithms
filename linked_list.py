@@ -30,7 +30,7 @@ class LinkedList:
             l.append(cur.value)
         return l
 
-    def _get_node(self, index):
+    def __get_node(self, index):
         if index >= self.length():
             raise IndexError
 
@@ -40,11 +40,11 @@ class LinkedList:
         return  cur
 
     def get(self, index):
-        return self._get_node(index).value
+        return self.__get_node(index).value
 
     def delete(self, index):
-        node = self._get_node(index)
-        node_before = self._get_node(index-1)
+        node = self.__get_node(index)
+        node_before = self.__get_node(index-1)
         node_before.next_node = node.next_node
 
 
