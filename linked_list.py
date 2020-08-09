@@ -3,6 +3,10 @@ class Node:
         self.value =value
         self.next_node = None
 
+    @property
+    def next(self):
+        return self.next_node
+
 class LinkedList:
     def __init__(self):
         self.head = Node()
@@ -30,29 +34,52 @@ class LinkedList:
             l.append(cur.value)
         return l
 
-    def __get_node(self, index):
+    def get_node(self, index):
         if index >= self.length():
             raise IndexError
 
         cur = self.head
         for _ in range(0,index+1):
             cur = cur.next_node
-        return  cur
+        return cur
 
     def get(self, index):
-        return self.__get_node(index).value
+        return self.get_node(index).value
 
     def delete(self, index):
-        node = self.__get_node(index)
-        node_before = self.__get_node(index-1)
+        node = self.get_node(index)
+        node_before = self.get_node(index - 1)
         node_before.next_node = node.next_node
+
+    def get_head(self):
+        return self.head
+
+    def has_next(self,index):
+        return bool(self.get_node(index).next_node)
+
+    def remove_dups(self):
+        from collections import defaultdict
+        items = defaultdict(int)
+
+        cur = self.get_node(0)
+        previous_node = None
+        while cur:
+            if items[cur.value]:
+                previous_node.next_node=cur.next_node
+            else:
+                items[cur.value] += 1
+                previous_node = cur
+            cur = cur.next_node
 
 
 llist = LinkedList()
-llist.append(4)
 llist.append(5)
 llist.append(6)
-print(llist.length())
+llist.append(6)
+llist.append(6)
+
+
 print(llist.display())
-llist.delete(2)
+llist.remove_dups()
 print(llist.display())
+
