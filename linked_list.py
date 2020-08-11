@@ -72,14 +72,40 @@ class LinkedList:
             cur = cur.next_node
 
 
+    def remove_dups(self):
+        from collections import defaultdict
+        items = defaultdict(int)
+
+        cur = self.get_node(0)
+        previous_node = None
+        while cur:
+            if items[cur.value]:
+                previous_node.next_node=cur.next_node
+            else:
+                items[cur.value] += 1
+                previous_node = cur
+            cur = cur.next_node
+
+    def remove_dups_without_buffer(self):
+        cur = self.get_node(0)
+
+        while cur:
+            cur_value = cur.value
+            next_node = cur.next_node
+            while next_node:
+                if next_node.value == cur_value:
+                    cur.next_node = next_node.next_node
+                next_node = next_node.next_node
+            cur = cur.next_node
+
+
+
+from random import randint
 llist = LinkedList()
-llist.append(5)
-llist.append(6)
-llist.append(6)
-llist.append(6)
 
+for _ in range(0,40):
+    llist.append(randint(0,10))
 
 print(llist.display())
-llist.remove_dups()
+llist.remove_dups_without_buffer()
 print(llist.display())
-
