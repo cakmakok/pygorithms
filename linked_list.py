@@ -98,14 +98,24 @@ class LinkedList:
                 next_node = next_node.next_node
             cur = cur.next_node
 
+    def nth_to_last(self, n):
+        cur1 = self.get_node(0)
+        cur2 = self.get_node(0)
 
+        for _ in range(0,n):
+            cur1=cur1.next_node
+
+        while cur1.next_node:
+            cur1 = cur1.next_node
+            cur2 = cur2.next_node
+        return cur2.value
 
 from random import randint
 llist = LinkedList()
 
-for _ in range(0,40):
+for _ in range(0,10):
     llist.append(randint(0,10))
 
 print(llist.display())
-llist.remove_dups_without_buffer()
+llist.remove_dups()
 print(llist.display())
